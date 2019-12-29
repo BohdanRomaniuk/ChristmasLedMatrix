@@ -5,8 +5,8 @@
 #define SHOW_TEXT_ONCE 1    // Показувати текст лише один раз
 #define MODES_AMOUNT 21     // Кількість режимів
 
-#define D_TEXT_SPEED 100      // Швидкість тексту (мс)
-#define D_EFFECT_SPEED 80     // Швидкість ефектів за замовчуванням (мс)
+#define TEXT_SPEED 100      // Швидкість тексту (мс)
+#define EFFECT_SPEED 80     // Швидкість ефектів за замовчуванням (мс)
 
 #define MAX_DIMENSION (max(WIDTH, HEIGHT))
 
@@ -14,26 +14,23 @@ uint32_t globalColor = 0x00ff00; //Колі при запуску зелений
 boolean loadingFlag = true;
 int8_t thisMode = 0;
 byte modeCode;
-boolean idleState = true;  // Прапорець холостого режиму роботи
 boolean fullTextFlag = false;
 
 uint32_t autoplayTime = ((long)AUTOPLAY_PERIOD * 1000);
 uint32_t autoplayTimer;
 
-Timer effectTimer(D_EFFECT_SPEED);
-Timer scrollTimer(D_TEXT_SPEED);
-Timer idleTimer((long)IDLE_TIME * 1000);
+Timer effectTimer(EFFECT_SPEED);
+Timer scrollTimer(TEXT_SPEED);
 Timer changeTimer(70);
-Timer halfsecTimer(500);
 
-void customModes() 
+void customModes()
 {
   switch (thisMode) {
-    case 0: fillString("Червоний", CRGB::Red);
+    case 0: fillString("З Новим 2020 Роком!", 1);
       break;
-    case 1: fillString("З Новим 2020 Роком!", 1);
+    case 1: fillString("2020 2020 2020 2020", 2);
       break;
-    case 2: fillString("RGB LED", 2);
+    case 2: fillString("2020 2020 2020 2020", 1);
       break;
     case 3: madnessNoise();
       break;
@@ -53,7 +50,7 @@ void customModes()
       break;
     case 11: oceanNoise();
       break;
-      case 12: snowRoutine();
+    case 12: snowRoutine();
       break;
     case 13: sparklesRoutine();
       break;
@@ -102,7 +99,7 @@ static void prevMode()
 void nextModeHandler()
 {
   thisMode++;
-  if (thisMode >= MODES_AMOUNT) 
+  if (thisMode >= MODES_AMOUNT)
   {
     thisMode = 0;
   }
@@ -125,13 +122,13 @@ void prevModeHandler()
 
 int fadeBrightness;
 #if (SMOOTH_CHANGE == 1)
-void modeFader() 
+void modeFader()
 {
   if (fadeMode == 0)
   {
     fadeMode = 1;
-  } 
-  else if (fadeMode == 1) 
+  }
+  else if (fadeMode == 1)
   {
     if (changeTimer.isReady())
     {
@@ -143,7 +140,7 @@ void modeFader()
       }
       FastLED.setBrightness(fadeBrightness);
     }
-  } 
+  }
   else if (fadeMode == 2)
   {
     fadeMode = 3;
@@ -151,11 +148,11 @@ void modeFader()
     {
       nextModeHandler();
     }
-    else 
+    else
     {
       prevModeHandler();
     }
-  } 
+  }
   else if (fadeMode == 3)
   {
     if (changeTimer.isReady())
@@ -172,54 +169,40 @@ void modeFader()
 }
 #endif
 
-void runEffects() 
+void runEffects()
 {
-  if (effectTimer.isReady()) 
+  if (effectTimer.isReady())
   {
     customModes();
     loadingFlag = false;
     FastLED.show();
   }
-  
+
 #if (SMOOTH_CHANGE == 1)
   modeFader();
 #endif
 
-  if (idleState)
+  if (fullTextFlag && SHOW_TEXT_ONCE)
   {
-    if (fullTextFlag && SHOW_TEXT_ONCE)
+    fullTextFlag = false;
+    autoplayTimer = millis();
+    nextMode();
+  }
+  if (millis() - autoplayTimer > autoplayTime && AUTOPLAY)
+  {
+    if (modeCode == 0 && SHOW_FULL_TEXT)
     {
-      fullTextFlag = false;
-      autoplayTimer = millis();
-      nextMode();
-    }
-    if (millis() - autoplayTimer > autoplayTime && AUTOPLAY)
-    {
-      if (modeCode == 0 && SHOW_FULL_TEXT)
+      if (fullTextFlag)
       {
-        if (fullTextFlag)
-        {
-          fullTextFlag = false;
-          autoplayTimer = millis();
-          nextMode();
-        }
-      } 
-      else
-      {
+        fullTextFlag = false;
         autoplayTimer = millis();
         nextMode();
       }
     }
-  } 
-  else 
-  {
-    if (idleTimer.isReady())
+    else
     {
-      idleState = true;
       autoplayTimer = millis();
-      loadingFlag = true;
-      FastLED.clear();
-      FastLED.show();
+      nextMode();
     }
   }
 }

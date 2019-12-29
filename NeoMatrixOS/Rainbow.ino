@@ -31,7 +31,7 @@ byte hue;
 void snowRoutine()
 {
   modeCode = 12;
-  for (byte x = 0; x < WIDTH; x++) 
+  for (byte x = 0; x < WIDTH; x++)
   {
     for (byte y = 0; y < HEIGHT - 1; y++)
     {
@@ -39,7 +39,7 @@ void snowRoutine()
     }
   }
 
-  for (byte x = 0; x < WIDTH; x++) 
+  for (byte x = 0; x < WIDTH; x++)
   {
     if (getPixColorXY(x, HEIGHT - 2) == 0 && (random(0, SNOW_DENSE) == 0))
     {
@@ -57,7 +57,7 @@ int coordB[2];
 int8_t vectorB[2];
 CRGB ballColor;
 
-void ballRoutine() 
+void ballRoutine()
 {
   if (loadingFlag)
   {
@@ -243,16 +243,19 @@ void matrixRoutine() {
     modeCode = 14;
     FastLED.clear();
   }
-  
-  for (byte x = 0; x < WIDTH; x++) 
+
+  for (byte x = 0; x < WIDTH; x++)
   {
+    CRGB cl = CHSV((byte)(hue + x * float(255 / WIDTH)), 255, 255);
+    uint32_t randomColor = (((uint32_t)cl.r << 16) | ((long)cl.g << 8 ) | (long)cl.b);
+    uint32_t randomColorLow = randomColor * 0.5;
     uint32_t thisColor = getPixColorXY(x, HEIGHT - 1);
     if (thisColor == 0)
-      drawPixelXY(x, HEIGHT - 1, 0x00FF00 * (random(0, 10) == 0));
-    else if (thisColor < 0x002000)
+      drawPixelXY(x, HEIGHT - 1, randomColor * (random(0, 10) == 0));
+    else if (thisColor < randomColorLow)
       drawPixelXY(x, HEIGHT - 1, 0);
     else
-      drawPixelXY(x, HEIGHT - 1, thisColor - 0x002000);
+      drawPixelXY(x, HEIGHT - 1, thisColor - randomColorLow);
   }
 
   for (byte x = 0; x < WIDTH; x++) {
@@ -266,7 +269,7 @@ void matrixRoutine() {
 int coord[BALLS_AMOUNT][2];
 int8_t vector[BALLS_AMOUNT][2];
 CRGB ballColors[BALLS_AMOUNT];
-void ballsRoutine() 
+void ballsRoutine()
 {
   if (loadingFlag) {
     modeCode = 17;
