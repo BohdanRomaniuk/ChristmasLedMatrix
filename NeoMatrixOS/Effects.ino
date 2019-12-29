@@ -171,6 +171,8 @@ void modeFader()
 
 void runEffects()
 {
+  effectTimer.setInterval((modeCode==18 || modeCode==19) ? 30 : EFFECT_SPEED);
+
   if (effectTimer.isReady())
   {
     customModes();
