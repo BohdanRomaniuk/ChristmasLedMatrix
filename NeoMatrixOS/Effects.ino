@@ -3,7 +3,6 @@
 #define SMOOTH_CHANGE 1     // Плавний перехід між режимами
 #define SHOW_FULL_TEXT 1    // Не переключати режим поки текст не покажеться повністю
 #define SHOW_TEXT_ONCE 1    // Показувати текст лише один раз
-#define MODES_AMOUNT 21     // Кількість режимів
 
 #define TEXT_SPEED 100      // Швидкість тексту (мс)
 #define EFFECT_SPEED 80     // Швидкість ефектів за замовчуванням (мс)
@@ -23,50 +22,48 @@ Timer effectTimer(EFFECT_SPEED);
 Timer scrollTimer(TEXT_SPEED);
 Timer changeTimer(70);
 
+#define MODES_AMOUNT 14     // Кількість режимів
 void customModes()
 {
   switch (thisMode) {
-    case 0: fillString("З Новим 2020 Роком!", 1);
+    case 0: fillString("З Новим 2020 роком!", 1);
       break;
-    case 1: fillString("2020 2020 2020 2020", 2);
+    case 1: madnessNoise();
       break;
-    case 2: fillString("2020 2020 2020 2020", 1);
+    case 2: cloudNoise();
       break;
-    case 3: madnessNoise();
+    case 3: lavaNoise();
       break;
-    case 4: cloudNoise();
+    case 4: plasmaNoise();
       break;
-    case 5: lavaNoise();
+    case 5: rainbowNoise();
       break;
-    case 6: plasmaNoise();
+    case 6: rainbowStripeNoise();
       break;
-    case 7: rainbowNoise();
+    case 7: zebraNoise();
       break;
-    case 8: rainbowStripeNoise();
+    case 8: forestNoise();
       break;
-    case 9: zebraNoise();
+    case 9: oceanNoise();
       break;
-    case 10: forestNoise();
+    case 10: rainbowRoutine();
       break;
-    case 11: oceanNoise();
+    case 11: rainbowDiagonalRoutine();
       break;
-    case 12: snowRoutine();
+    case 12: fireRoutine();
       break;
-    case 13: sparklesRoutine();
+      
+    case 14: snowRoutine();
       break;
-    case 14: matrixRoutine();
+    case 15: sparklesRoutine();
       break;
-    case 15: starfallRoutine();
+    case 16: starfallRoutine();
       break;
-    case 16: ballRoutine();
+    case 17: ballRoutine();
       break;
-    case 17: ballsRoutine();
+    case 18: ballsRoutine();
       break;
-    case 18: rainbowRoutine();
-      break;
-    case 19: rainbowDiagonalRoutine();
-      break;
-    case 20: fireRoutine();
+    case 19: matrixRoutine();
       break;
   }
 }
