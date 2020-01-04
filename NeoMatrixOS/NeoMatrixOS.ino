@@ -1,9 +1,9 @@
 #include "FastLED.h"
 
-#define BRIGHTNESS 50         // Яскравість (0-255)
+#define BRIGHTNESS 255         // Яскравість (0-255)
 #define CURRENT_LIMIT 30000   // Сила струму (30 Ампер)
 
-#define WIDTH 14              // Ширина
+#define WIDTH 21              // Ширина
 #define HEIGHT 10             // Висота
 #define SEGMENTS 1            // Діодів у одному пікселі
 #define NUM_LEDS WIDTH * HEIGHT * SEGMENTS
@@ -14,7 +14,7 @@
 #define STRIP_DIRECTION 1     // Напрямок діодів: 0 - вправо, 1 - вверх, 2 - вліво, 3 - вниз
 
 boolean AUTOPLAY = 1;         // Включити виключити автоматичну зміну режимів
-int AUTOPLAY_PERIOD = 10;     // Час між автоматичною зміною режимів (секунди)
+int AUTOPLAY_PERIOD = 20;     // Час між автоматичною зміною режимів (секунди)
 
 #define LED_PIN 6             // Інформаційний вихід на діоди
 
