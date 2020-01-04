@@ -22,7 +22,7 @@ Timer effectTimer(EFFECT_SPEED);
 Timer scrollTimer(TEXT_SPEED);
 Timer changeTimer(70);
 
-#define MODES_AMOUNT 14     // Кількість режимів
+#define MODES_AMOUNT 13     // Кількість режимів
 void customModes()
 {
   switch (thisMode) {
@@ -52,18 +52,24 @@ void customModes()
       break;
     case 12: fireRoutine();
       break;
-      
-    case 14: snowRoutine();
+    //Нецікаві ефекти  
+    case 13: snowRoutine();
       break;
-    case 15: sparklesRoutine();
+    case 14: sparklesRoutine();
       break;
-    case 16: starfallRoutine();
+    case 15: starfallRoutine();
       break;
-    case 17: ballRoutine();
+    case 16: ballRoutine();
       break;
-    case 18: ballsRoutine();
+    case 17: ballsRoutine();
       break;
-    case 19: matrixRoutine();
+    case 18: matrixRoutine();
+      break;
+    case 19: fillString("Червоний", CRGB::Red);
+      break;
+    case 20: fillString("Райдуга", 1);
+      break;
+    case 21: fillString("Кожна буква своїм кольором", 2);
       break;
   }
 }
