@@ -26,7 +26,7 @@ Timer changeTimer(70);
 void customModes()
 {
   switch (thisMode) {
-    case 0: fillString("З Новим 2020 роком!", 1);
+    case 0: fillString("З Новим 2021 роком!", 1);
       break;
     case 1: madnessNoise();
       break;

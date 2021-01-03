@@ -44,6 +44,7 @@ void fillString(String text, uint32_t color)
       fullTextFlag = true;
     }
     FastLED.show();
+    delay(5);
   }
 }
 

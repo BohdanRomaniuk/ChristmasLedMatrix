@@ -16,8 +16,7 @@
 boolean AUTOPLAY = 1;         // Включити виключити автоматичну зміну режимів
 int AUTOPLAY_PERIOD = 20;     // Час між автоматичною зміною режимів (секунди)
 
-#define LED_PIN 6             // Інформаційний вихід на діоди
-
+#define LED_PIN 23             // Інформаційний вихід на діоди 6 - Arduino, 23 - ESP32
 CRGB leds[NUM_LEDS];
 
 void setup() {
