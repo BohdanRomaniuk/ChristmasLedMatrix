@@ -1,3 +1,5 @@
+#include "palettes.h"
+
 #define MADNESS_SCALE 100
 #define CLOUD_SCALE 30
 #define LAVA_SCALE 50
@@ -29,9 +31,9 @@ void madnessNoise()
 {
   if (loadingFlag) 
   {
+    modeCode = 5;
     loadingFlag = false;
     scale = MADNESS_SCALE;
-    modeCode = 3;
   }
   fillnoise8();
   for (int i = 0; i < WIDTH; i++)
@@ -48,10 +50,128 @@ void rainbowNoise()
 {
   if (loadingFlag)
   {
+    modeCode = 11;
     loadingFlag = false;
     currentPalette = RainbowColors_p;
-    scale = RAINBOW_SCALE; colorLoop = 1;
-    modeCode = 7;
+    scale = RAINBOW_SCALE;
+    colorLoop = 1;
+  }
+  fillNoiseLED();
+}
+
+void sunsetNoise()
+{
+  if (loadingFlag)
+  {
+    modeCode = 3;
+    loadingFlag = false;
+    currentPalette = sunsetPalette;
+    scale = 30;
+    colorLoop = 1;
+  }
+  fillNoiseLED();
+}
+
+void emeraldNoise()
+{
+  if (loadingFlag)
+  {
+    modeCode = 13;
+    loadingFlag = false;
+    currentPalette = emeraldDragonPalette;
+    scale = 30;
+    colorLoop = 1;
+  }
+  fillNoiseLED();
+}
+
+void rgiNoise()
+{
+  if (loadingFlag)
+  {
+    modeCode = 26;
+    loadingFlag = false;
+    currentPalette = rgiPalette;
+    scale = 10;
+    colorLoop = 1;
+  }
+  fillNoiseLED();
+}
+
+void retroNoise()
+{
+  if (loadingFlag)
+  {
+    modeCode = 25;
+    loadingFlag = false;
+    currentPalette = retroPalette;
+    scale = 20;
+    colorLoop = 1;
+  }
+  fillNoiseLED();
+}
+
+void landscapeNoise()
+{
+  if (loadingFlag)
+  {
+    modeCode = 9;
+    loadingFlag = false;
+    currentPalette = landscapePalette;
+    scale = 30;
+    colorLoop = 1;
+  }
+  fillNoiseLED();
+}
+
+void hult65Noise()
+{
+  if (loadingFlag)
+  {
+    modeCode = 19;
+    loadingFlag = false;
+    currentPalette = hult65Palette;
+    scale = 30;
+    colorLoop = 1;
+  }
+  fillNoiseLED();
+}
+
+void hult64Noise()
+{
+  if (loadingFlag)
+  {
+    loadingFlag = false;
+    currentPalette = hult64Palette;
+    scale = 40;
+    colorLoop = 1;
+    modeCode = 29;
+  }
+  fillNoiseLED();
+}
+
+void blueCyanYellowNoise()
+{
+  if (loadingFlag)
+  {
+    modeCode = 6;
+    loadingFlag = false;
+    currentPalette = blueCyanYellowPalette;
+    scale = 30;
+    colorLoop = 1;
+  }
+  fillNoiseLED();
+}
+
+void redwhiteNoise()
+{
+  if (loadingFlag)
+  {
+    modeCode = 28;
+    loadingFlag = false;
+    currentPalette = redwhitePalette;
+    scale = 30;
+    colorLoop = 1;
   }
   fillNoiseLED();
 }
@@ -60,10 +180,11 @@ void rainbowStripeNoise()
 {
   if (loadingFlag)
   {
+    modeCode = 22;
     loadingFlag = false;
     currentPalette = RainbowStripeColors_p;
-    scale = RAINBOW_S_SCALE; colorLoop = 1;
-    modeCode = 8;
+    scale = RAINBOW_S_SCALE;
+    colorLoop = 1;
   }
   fillNoiseLED();
 }
@@ -72,14 +193,15 @@ void zebraNoise()
 {
   if (loadingFlag)
   {
+    modeCode = 23;
     loadingFlag = false;
-    fill_solid( currentPalette, 16, CRGB::Black);
+    fill_solid(currentPalette, 16, CRGB::Black);
     currentPalette[0] = CRGB::White;
     currentPalette[4] = CRGB::White;
     currentPalette[8] = CRGB::White;
     currentPalette[12] = CRGB::White;
-    scale = ZEBRA_SCALE; colorLoop = 1;
-    modeCode = 9;
+    scale = ZEBRA_SCALE;
+    colorLoop = 1;
   }
   fillNoiseLED();
 }
@@ -90,7 +212,8 @@ void forestNoise()
   {
     loadingFlag = false;
     currentPalette = ForestColors_p;
-    scale = FOREST_SCALE; colorLoop = 0;
+    scale = FOREST_SCALE;
+    colorLoop = 0;
     modeCode = 10;
   }
   fillNoiseLED();
@@ -100,10 +223,11 @@ void oceanNoise()
 {
   if (loadingFlag)
   {
+    modeCode = 21;
     loadingFlag = false;
     currentPalette = OceanColors_p;
-    scale = OCEAN_SCALE; colorLoop = 0;
-    modeCode = 11;
+    scale = OCEAN_SCALE;
+    colorLoop = 0;
   }
   fillNoiseLED();
 }
@@ -112,10 +236,11 @@ void plasmaNoise()
 {
   if (loadingFlag)
   {
+    modeCode = 17;
     loadingFlag = false;
     currentPalette = PartyColors_p;
-    scale = PLASMA_SCALE; colorLoop = 1;
-    modeCode = 6;
+    scale = PLASMA_SCALE;
+    colorLoop = 1;
   }
   fillNoiseLED();
 }
@@ -124,10 +249,11 @@ void cloudNoise()
 {
   if (loadingFlag)
   {
+    modeCode = 15;
     loadingFlag = false;
     currentPalette = CloudColors_p;
-    scale = CLOUD_SCALE; colorLoop = 0;
-    modeCode = 4;
+    scale = CLOUD_SCALE;
+    colorLoop = 0;
   }
   fillNoiseLED();
 }
@@ -139,7 +265,20 @@ void lavaNoise()
     loadingFlag = false;
     currentPalette = LavaColors_p;
     scale = LAVA_SCALE; colorLoop = 0;
-    modeCode = 5;
+    modeCode = 8;
+  }
+  fillNoiseLED();
+}
+
+void ukrNoise()
+{
+  if (loadingFlag)
+  {
+    modeCode = 1;
+    loadingFlag = false;
+    currentPalette = blueYellowPalette;
+    scale = 30;
+    colorLoop = 0;
   }
   fillNoiseLED();
 }

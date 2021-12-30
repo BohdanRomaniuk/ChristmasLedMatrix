@@ -4,7 +4,7 @@
 #define SHOW_FULL_TEXT 1    // Не переключати режим поки текст не покажеться повністю
 #define SHOW_TEXT_ONCE 1    // Показувати текст лише один раз
 
-#define TEXT_SPEED 100      // Швидкість тексту (мс)
+#define TEXT_SPEED 50      // Швидкість тексту (мс)
 #define EFFECT_SPEED 80     // Швидкість ефектів за замовчуванням (мс)
 
 #define MAX_DIMENSION (max(WIDTH, HEIGHT))
@@ -14,6 +14,7 @@ boolean loadingFlag = true;
 int8_t thisMode = 0;
 byte modeCode;
 boolean fullTextFlag = false;
+byte gradHue;
 
 uint32_t autoplayTime = ((long)AUTOPLAY_PERIOD * 1000);
 uint32_t autoplayTimer;
@@ -22,54 +23,100 @@ Timer effectTimer(EFFECT_SPEED);
 Timer scrollTimer(TEXT_SPEED);
 Timer changeTimer(70);
 
-#define MODES_AMOUNT 13     // Кількість режимів
+#define MODES_AMOUNT 30     // Кількість режимів
+
 void customModes()
 {
   switch (thisMode) {
-    case 0: fillString("З Новим 2021 роком!", 1);
+    case 0:
+      fillString("З Новим 2022 роком!", 2);
       break;
-    case 1: madnessNoise();
+    case 1:
+      ukrNoise();
       break;
-    case 2: cloudNoise();
+    case 2:
+      blendwave();
       break;
-    case 3: lavaNoise();
+    case 3:
+      sunsetNoise();
       break;
-    case 4: plasmaNoise();
+    case 4:
+      auroraGradient();
       break;
-    case 5: rainbowNoise();
+    case 5:
+      madnessNoise();
       break;
-    case 6: rainbowStripeNoise();
+    case 6:
+      blueCyanYellowNoise();
       break;
-    case 7: zebraNoise();
+    case 7:
+      matrixRoutine();
       break;
-    case 8: forestNoise();
+    case 8:
+      lavaNoise();
       break;
-    case 9: oceanNoise();
+    case 9:
+      landscapeNoise();
       break;
-    case 10: rainbowRoutine();
+    case 10:
+      sunsetGradient();
       break;
-    case 11: rainbowDiagonalRoutine();
+    case 11:
+      rainbowNoise();
       break;
-    case 12: fireRoutine();
+    case 12:
+      snowRoutine();
       break;
-    //Нецікаві ефекти  
-    case 13: snowRoutine();
+    case 13:
+      emeraldNoise();
       break;
-    case 14: sparklesRoutine();
+    case 14:
+      ukrGradient();
       break;
-    case 15: starfallRoutine();
+    case 15:
+      cloudNoise();
       break;
-    case 16: ballRoutine();
+    case 16:
+      fireRoutine();
       break;
-    case 17: ballsRoutine();
+    case 17:
+      plasmaNoise();
       break;
-    case 18: matrixRoutine();
+    case 18:
+      sparklesRoutine();
       break;
-    case 19: fillString("Червоний", CRGB::Red);
+    case 19:
+      hult65Noise();
       break;
-    case 20: fillString("Райдуга", 1);
+    case 20:
+      cyperpunkGradient();
       break;
-    case 21: fillString("Кожна буква своїм кольором", 2);
+    case 21:
+      oceanNoise();
+      break;
+    case 22:
+      rainbowStripeNoise();
+      break;
+    case 23:
+      zebraNoise();
+      break;
+    case 24:
+      rainbowRoutine();
+      break;
+    case 25:
+      retroNoise();
+      break;
+    case 26:
+      rgiNoise();
+      break;
+    case 27:
+      pinksplashGradient();
+      break;
+    case 28:
+      redwhiteNoise();
+      break;
+    case 29:
+      hult64Noise();
       break;
   }
 }
@@ -174,7 +221,7 @@ void modeFader()
 
 void runEffects()
 {
-  effectTimer.setInterval((modeCode==18 || modeCode==19) ? 30 : EFFECT_SPEED);
+  effectTimer.setInterval((modeCode == 18 || modeCode == 19) ? 30 : EFFECT_SPEED);
 
   if (effectTimer.isReady())
   {
